@@ -1,0 +1,28 @@
+gameloop
+
+read x:int y:int health:int score:int chargesHammer:int chargesScythe:int chargesBow:int
+read visibleEntities:int
+loop visibleEntities read ex:int ey:int etype:int evalue:int
+
+write MOVE 6 8 Let's go!
+
+STATEMENT
+Make the hero reach the exit of the maze alive.
+
+INPUT
+x: x position of the hero
+y: y position of the hero
+health: current health points
+score: current score
+chargesHammer: how many times the hammer can be used
+chargesScythe: how many times the scythe can be used
+chargesBow: how many times the bow can be used
+visibleEntities: the number of visible entities
+ex: x position of the entity
+ey: y position of the entity
+etype: the type of the entity
+evalue: value associated with the entity
+
+
+OUTPUT
+MOVE x y [message] | ATTACK weapon x y [message]

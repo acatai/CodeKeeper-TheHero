@@ -1,0 +1,263 @@
+<div id="statement_back" class="statement_back" style="display:none"></div>
+<div class="statement-body">
+
+
+
+
+    <!-- GOAL -->
+    <div class="statement-section statement-goal">
+        <div style="color: #7cc576;
+                    background-color: rgba(124, 197, 118,.1);
+                    padding: 2px;">
+
+            <!--<p>This contribution was developed for the <i><b>Programming Programming Games</b></i> course, University of Wrocław, 2021.</p>
+            <p>Authored by <i><b>Imie Nazwisko1</b></i> (<a target="_blank" href="linktoprofile1">@nick1</a>), ..., <i><b>Imie Nazwiskon</b></i> (<a target="_blank" href="linktoprofile1">@nickn</a>).</p>
+            <p>Supervised by <i><b>Jakub Kowalski</b></i> (<a target="_blank" href="https://www.codingame.com/profile/b528dd3b279d7578674a1129305918e0400484">@aCat</a>).</p>-->
+
+            <!--<p>Skilled programmer has to swiftly navigate through maze of code, fearlessly fight encountered errors and bravely reach the imposed deadline by smartly using all available resources. You are the one. So you applied for the famous and very rare certificate given by a mysterious organization. It quickly become obvious that what you will have to dois not like anything you have encountered so far...</p>-->
+            <p>A skilled programmer has to swiftly navigate through maze of code, fearlessly fight encountered errors and bravely reach the imposed deadline by smartly using all available resources. <br>
+                And now is the time to show your fellow coworkers that you are a better programmer than them. Not a particularly noble cause, but... ready, steady, code!</p>
+        </div>
+        <br>
+        <h1>
+            <span class="icon icon-goal">&nbsp;</span>
+            <span>The Goal</span>
+        </h1>
+        <div class="statement-goal-content">
+            The goal of the game is to make the hero reach the exit of the maze alive.
+            This may require fighting monsters and gathering necessary supplies, but also there may be some treasures along the way.
+        </div>
+    </div>
+    <!-- RULES -->
+    <div class="statement-section statement-rules">
+        <h1>
+            <span class="icon icon-rules">&nbsp;</span>
+            <span>Rules</span>
+        </h1>
+        <div>
+            <div class="statement-rules-content">
+                <div style="margin-bottom: 10px">
+                    Detailed rules of the puzzle.
+                </div>
+                <div style="margin-bottom: 10px">
+                    (You can access the game's source code on <a href="https://github.com/acatai/CodeKeeper-TheHero">https://github.com/acatai/CodeKeeper-TheHero</a>.)
+                </div>
+                <div class="blk">
+                    <!--<div class="title">Detailed rules</div>-->
+                    <div class="text">
+                        <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Maze</h3>
+                        <div style="margin-bottom: 10px">
+                            A rectangle of <b>cells</b> of width <const>16</const> and height <const>12</const>, where <const>0 0</const> is the top left corner and <const>15 11</const> is the bottom right corner.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            Each cell can be <b>passable</b> or an <b>obstacle</b>. No entity can occupy or step into an <b>obstacle</b>.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            <b>Moving</b> through the game is only possible by making steps in cardinal directions (left, right, up, down). <b>Seeing</b> or <b>attacking</b> in range <var>n</var> applies to all cells reachable from the entity position by making <var>n</var> steps in any (cardinal or diagonal) direction.
+                        </div>
+
+
+                        <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Hero</h3>
+                        <div style="margin-bottom: 10px">
+                            Only player-controlled entity. He has known <var>x</var>, <var>y</var> position and <var>health</var> points. Health points cannot go above <const>20</const>. When they reach 0 or below, the game ends, and the score is reduced by <const>1000</const>. Ending the game with an error (timeout, wrong command, etc.) sets the final score to <const>-10000</const>.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            The hero can only see a portion of the maze around him, having perfect knowledge about all entities in range <const>3</const>. (The visualization of fog can be turned on/off in the viewer settings.)
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            During a turn, the hero can either move to an adjacent cell or attack a terget cell with one of his weapons. Hero actions are performed at the beginning of the turn, before the monsters reaction.
+                        </div>
+
+                        <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Weapons</h3>
+                        <div style="margin-bottom: 10px">
+                            There are four weapons the hero can use: <b>sword</b>, <b>hammer</b>, <b>scythe</b>, and <b>bow</b>. There are no limitations on using <b>sword</b>, but the remaining ones require to spend a charge. Each weapon has a separate charge counter, which is initialized to <const>5</const> at the beginning of every game.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            To use a weapon, a target cell within the valid range has to be specified. If a given cell is outside the weapon's range, no action is performed and the charge is not spent.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            <ul>
+                                <li><b>sword</b>: <const>10</const> damage
+                                    <div style="margin-bottom: 10px">Applies damage to one cell that is a step away (in cardinal direction) from the hero.</div>
+                                </li>
+                                <li><b>hammer</b>: <const>6</const> damage
+                                    <div style="margin-bottom: 10px">Applies damage to three cells in range <const>1</const>. If the given target is diagonal, the attack also hits the closest neighbours in the two adjacent cardinal directions from the hero. If the target is in a cardinal direction, it also hits the closest neighbouring cells in the two diagonal adjacent directions.</div>
+                                </li>
+                                <li><b>scythe</b>: <const>7</const> damage
+                                    <div style="margin-bottom: 10px">A target can be any cell in the chess queen move pattern limited to distance 2. The attack applies damage to the two cells covered by a queen move pattern containing the given target cell.</div>
+                                </li>
+                                <li><b>bow</b>: <const>8</const> damage
+                                    <div style="margin-bottom: 10px">Applies damage to any single cell visible by the hero (which is in range ≤ <const>3</const>).</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Monsters</h3>
+                        <div style="margin-bottom: 10px">
+                            Each type of monster has associated initial health, view range, attack range, and damage. If a monster health hits <const>0</const>, it is destroyed and the hero score is increased by the amount of the monster's initial health.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            During a turn, monster actions are performed after the heroes' and the order in which they are acting is uniformly random in each turn.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            If the hero is within the monster's attack range, the monster attacks reducing hero's health and score by <var>damage</var>.
+                            If the hero is within the monster's view range but not attack range, the monster is making a step towards hero (possibly avoiding obstacles along the way).
+                            Otherwise, the monster stays in place and makes no action.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            At most one monster can occupy a cell at any moment. During the movement, each monster considers the other ones as unmoving obstacles.
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            There are the following five types of monsters:
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            <ul>
+                                <li><b>Box</b>: <const>1</const> health, <const>0</const> view range, <const>0</const> attack range, <const>0</const> damage.</li>
+                                <li><b>Skeleton</b>: <const>6</const> health, <const>1</const> view range, <const>1</const> attack range, <const>1</const> damage.</li>
+                                <li><b>Gargoyle</b>: <const>14</const> health, <const>2</const> view range, <const>1</const> attack range, <const>2</const> damage.</li>
+                                <li><b>Orc</b>: <const>8</const> health, <const>2</const> view range, <const>2</const> attack range, <const>2</const> damage.</li>
+                                <li><b>Vampire</b>: <const>10</const> health, <const>3</const> view range, <const>1</const> attack range, <const>3</const> damage.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Items</h3>
+                    <div style="margin-bottom: 10px">
+                        An item can be found only at passable cells, and there is at most one item on a single cell. A monster can stay on top of an item, but it is not influencing it in any way.
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        If the hero moves into a cell containing an item, its effect is immediately applied.
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        The following item types may be found in the maze:
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        <ul>
+                            <li><b>Exit</b>: Ends the level with success and increases the score by <const>10000</const>.</li>
+                            <li><b>Treasure</b>: Increases the score by <const>100</const>.</li>
+                            <li><b>Potion</b>: Gives up to <const>10</const> health (never exceeds the hero's maximum health).</li>
+                            <li><b>Hammer</b>: A chest giving additional hammer charge.</li>
+                            <li><b>Scythe</b>: A chest giving additional scythe charge.</li>
+                            <li><b>Bow</b>: A chest giving additional bow charge.</li>
+                        </ul>
+
+
+                        <!--                <h3 style="font-size: 14px;font-weight: 700;padding-top: 15px;color: #838891;padding-bottom: 15px;">Source code</h3>-->
+                        <!--                <div style="margin-bottom: 10px">-->
+                        <!--                    The source code of the contribution is available at <a href="https://github.com/acatai/CommunityFallChallenge2021">https://github.com/acatai/CommunityFallChallenge2021</a>.-->
+                        <!--                </div>-->
+
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div style="color: #7cc576;
+                    background-color: rgba(124, 197, 118,.1);
+                    padding: 2px;">
+                <p style="text-align:center"><b>Acknowledgments</b></p>
+                <!--<p>This contribution was developed for the <i><b>Programming Programming Games</b></i> course, University of Wrocław, 2021.</p>
+                <p>Authored by <i><b>Imie Nazwisko1</b></i> (<a target="_blank" href="linktoprofile1">@nick1</a>), ..., <i><b>Imie Nazwiskon</b></i> (<a target="_blank" href="linktoprofile1">@nickn</a>).</p>
+                <p>Supervised by <i><b>Jakub Kowalski</b></i> (<a target="_blank" href="https://www.codingame.com/profile/b528dd3b279d7578674a1129305918e0400484">@aCat</a>).</p>-->
+
+                <p>This contribution was developed for the <i><b>Artificial Intelligence for Games, 2021 edition</b></i> course, University of Wrocław, 2021.</p>
+                <p>Authored by <i><b>Jakub Kowalski</b></i> (<a target="_blank" href="https://www.codingame.com/profile/b528dd3b279d7578674a1129305918e0400484">@aCat</a>).</p>
+                <p>Map generator by <a href="https://www.codingame.com/profile/8374201b6f1d19eb99d61c80351465b65150051" target="_blank">eulerscheZahl</a>.</p>
+                <p>Additional thanks to: <a target="_blank" href="https://www.codingame.com/profile/2b872a07bc65786f280864cadc2f635c0763881">@radekmie</a>,
+                    <a target="_blank" href="https://www.codingame.com/profile/6c5afcae707f119ca130870235cb21a10526811">@Gabbek</a>.</p>
+                <!--                <p>Additional thanks to: <i><b>Radosław Miernik</b></i> (<a target="_blank" href="https://www.codingame.com/profile/2b872a07bc65786f280864cadc2f635c0763881">@radekmie</a>),-->
+                <!--                    (<a target="_blank" href="https://www.codingame.com/profile/6c5afcae707f119ca130870235cb21a10526811">@Gabbek</a>)</p>-->
+            </div>
+            <br>
+            <br>
+
+            <!-- PROTOCOL -->
+            <div class="statement-section statement-protocol">
+                <h1>
+                    <span class="icon icon-protocol">&nbsp;</span>
+                    <span>Game Input</span>
+                </h1>
+
+                <!-- Protocol block -->
+                <div class="blk">
+                    <div class="title">Input for one Game Turn</div>
+                    <div class="text">
+                        <span class="statement-lineno">First line:</span> 7 space-separated integers:
+                        <ul>
+                            <li><var>x</var>: x position of the hero.</li>
+                            <li><var>y</var>: y position of the hero.</li>
+                            <li><var>health</var>: current health points.</li>
+                            <li><var>score</var>: current score.</li>
+                            <li><var>chargesHammer</var>: how many times the <b>hammer</b> can be used.</li>
+                            <li><var>chargesScythe</var>: how many times the <b>scythe</b> can be used.</li>
+                            <li><var>chargesBow</var>: how many times the <b>bow</b> can be used.</li>
+                        </ul>
+                        <span class="statement-lineno">Next line:</span> An integer <var>visibleEntities</var> for the number of visible entities.<br>
+                        <span class="statement-lineno">Next <var>visibleEntities</var> lines:</span> 4 space-separated integers to describe each visible entity:
+                        <ul>
+                            <li><var>ex</var>: x position of the entity.</li>
+                            <li><var>ey</var>: y position of the entity.</li>
+                            <li><var>etype</var>: the type of the entity:
+                                <ul>
+                                    <li><const>0</const>: exit.</li>
+                                    <li><const>1</const>: obstacle.</li>
+                                    <li><const>2</const>: treasure.</li>
+                                    <li><const>3</const>: potion.</li>
+                                    <li><const>4</const>: charge for hammer.</li>
+                                    <li><const>5</const>: charge for scythe.</li>
+                                    <li><const>6</const>: charge for bow.</li>
+                                    <li><const>7</const>: box.</li>
+                                    <li><const>8</const>: skeleton.</li>
+                                    <li><const>9</const>: gargoyle.</li>
+                                    <li><const>10</const>: orc.</li>
+                                    <li><const>11</const>: vampire.</li>
+                                </ul>
+                            </li>
+                            <li><var>evalue</var>: value associated with the entity:
+                                <ul>
+                                    <li>for monster: its current health.</li>
+                                    <li>for potion: its healing value <const>10</const>.</li>
+                                    <li>for obstacle: <const>-1</const>.</li>
+                                    <li>for treasure and exit: amount of score points they give (<const>100</const> and <const>10000</const> respectively).</li>
+                                    <li>for charge chest: <const>1</const> if it contains hammer, <const>2</const> if scythe, <const>3</const> if bow </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- Protocol block -->
+                <div class="blk">
+                    <div class="title">Output</div>
+                    <div class="text">
+                        A single line with your action:
+                        <ul style="padding-bottom: 0;">
+                            <li>
+                                <div style="margin-bottom: 10px">
+                                    <action>MOVE x y [message]</action> to move towards a given cell. <action>x y</action>. Optional <var>message</var> can be appended after.
+                                </div>
+                                <div style="margin-bottom: 10px">
+                                    Moving to a cell more than one one step distant uses in-game pathfinding that takes into account only currently visible cells. Stepping into a cell containing monster automatically uses the <b>sword</b> attack. To wait, hero can move to his current position.
+                                </div>
+                            </li>
+                            <li>
+                                <action>ATTACK weapon x y [message]</action> to attack with given weapon towards given cell. Weapon identifiers are: <const>0</const> for <b>sword</b>, <const>1</const> for <b>hammer</b>, <const>2</const> for <b>scythe</b>, and <const>3</const> for <b>bow</b>.
+                                <!--<action>ATTACK weapon x y [message]</action> to attack with given weapon towards given cell. Weapon identifiers are: <const>0</const> for <b>Console Print</b>, <const>1</const> for <b>Linter</b>, <const>2</const> for <b></b>Unit Test, and <const>3</const> for <b>Breakpoint</b>.-->
+                                Optional <var>message</var> can be appended.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Protocol block -->
+                <div class="blk">
+                    <div class="title">Constraints</div>
+                    Response time for first turn ≤ <const>1</const>s<br>
+                    Response time for one turn ≤ <const>50</const>ms<br>
+                    Turn limit: <const>150</const>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
